@@ -1,6 +1,5 @@
-# ptflex-firmware
-Firmware for ptFlex Flight Controller
-
+/*
+Custom Sensor Configurations for Project: Traveler Flight Controllers
 Copywrite 2011-2019 - Zack Clobes (W0ZC), Custom Digital Services, LLC
 
 
@@ -12,3 +11,21 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
 
 You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
+
+This file is intended to be modified by the end-user to accomidate any custom programming.
+
+*/
+#ifndef Custom_h
+#define Custom_h
+
+
+
+
+
+void customInit();
+bool customLoop(GPS& GPSParser);
+void customSendPositionSingleLine(bool transmitCustom, TNC& oTNC, GPS& GPSParser);
+void customExercise();
+
+#endif
