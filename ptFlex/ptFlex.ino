@@ -12,10 +12,15 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
 You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+Before programming for the first time, the ATmega fuses must be set.
+ Extended: 0x05
+ High:     0xD6
+ Low:      0xFF
+
 */
 
 
-#define FIRMWARE_VERSION "1.0.0"
+#define FIRMWARE_VERSION "1.0.1"
 #define CONFIG_VERSION "PT0003"
 #define CONFIG_PROMPT "\n# "
 
@@ -54,9 +59,7 @@ You should have received a copy of the GNU General Public License along with thi
 #define PIN_DRA_RX 10
 #define PIN_DRA_EN 4
 
-//PIN_TNC's are used for the split Arduino/Arduino_modem units.  Can be ignored for Combined mode
-#define PIN_TNC_RX 12
-#define PIN_TNC_TX 11
+
 
 //How many MS to delay between subsequent packets (as in between GPGGA and GPRMC strings
 #define DELAY_MS_BETWEEN_XMITS 1250
@@ -876,7 +879,7 @@ void setDefaultConfig() {
   Config.BeaconAltitudeDelayHigh = 45;
   Config.BeaconSlot1 = 15;
   Config.BeaconSlot2 = 45;
-  strcpy(Config.StatusMessage, "Project Traveler Tracker");
+  strcpy(Config.StatusMessage, "Project Traveler ptFlex");
   Config.StatusXmitGPSFix = 1;
   Config.StatusXmitBurstAltitude = 1;
   Config.StatusXmitBatteryVoltage = 1;
@@ -884,7 +887,7 @@ void setDefaultConfig() {
   Config.StatusXmitPressure = 1;
 	Config.StatusXmitCustom;
 	
-	Config.RadioType = 0;
+	Config.RadioType = 1;   //DRA818V transmitter
 	Config.RadioTxDelay = 50;
 	Config.RadioCourtesyTone = 0;
   strcpy(Config.RadioFreqTx, "144.3900");
@@ -992,43 +995,15 @@ void doConfigMode() {
         Config.AnnounceMode = 0x03;    //temporarily set the announce mode to both
         annunciate('x');
         
-        //check the IO pins
-        Serial.println(F(" pin 4"));
-        pinMode(4, OUTPUT);
-        digitalWrite(4, HIGH);
-        delay(1000);
-        digitalWrite(4, LOW);
-        pinMode(4, INPUT);
+        int iBattery = analogRead(PIN_ANALOG_BATTERY);
+        float fVolts = (float)iBattery / 204.8;    //204.8 points per volt,
+        fVolts = fVolts * 3.141;        //times (147/100) to adjust for the resistor divider
+        fVolts = fVolts + 0.19;      //account for the inline diode on the power supply
 
-        Serial.println(F(" pin 6"));
-        pinMode(6, OUTPUT);
-        digitalWrite(6, HIGH);
-        delay(1000);
-        digitalWrite(6, LOW);
-        pinMode(6, INPUT);        
-        
-        Serial.println(F(" pin 10"));
-        pinMode(10, OUTPUT);
-        digitalWrite(10, HIGH);
-        delay(1000);
-        digitalWrite(10, LOW);
-        pinMode(10, INPUT);  
+        Serial.print(F("Batt: "));
+        Serial.println(fVolts);
 
-        //Analog A2
-        Serial.println(F(" pin A2"));
-        pinMode(16, OUTPUT);
-        digitalWrite(16, HIGH);
-        delay(1000);
-        digitalWrite(16, LOW);
-        pinMode(16, INPUT);          
         
-         //Analog A3
-        Serial.println(F(" pin A3"));
-        pinMode(17, OUTPUT);
-        digitalWrite(17, HIGH);
-        delay(1000);
-        digitalWrite(17, LOW);
-        pinMode(17, INPUT);   
   
         collectGPSStrings();   //check the GPS  
   
@@ -1465,4 +1440,3 @@ void sendConfigToPC() {
 
 	  //digitalWrite(PIN_TP_ISRTIME, LOW);
 	}
-

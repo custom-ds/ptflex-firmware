@@ -1,6 +1,6 @@
 {
 	"packages": [{
-		"name": "Project Traveler",
+		"name": "project-traveler",
 		"maintainer": "Project Traveler",
 		"websiteURL": "https://www.projecttraveler.org",
 		"email": "zack@custom-ds.com",
@@ -8,20 +8,25 @@
 			"online": "https://www.projecttraveler.org"
 		},
 		"platforms": [{
-			"name": "ArduinoTrack",
+			"name": "Project Traveler Boards",
 			"architecture": "avr",
 			"version": "1.0.0",
 			"category": "Contributed",
-			"url": "https://www.projecttraveler.org/downloads/arduinotrackboards-1.0.0.zip",
-			"archiveFileName": "arduinotrackboards-1.0.0.zip",
-			"checksum": "SHA-256:70ccbb68fbdd2bd63eee6d69ef8ae77003923850d7af490623b364d40d2dab6d",
-			"size": "2485",
+			"url": "https://www.projecttraveler.org/downloads/projecttravelerboards-1.1.0.zip",
+			"archiveFileName": "projecttravelerboards-1.1.0.zip",
+			"checksum": "SHA-256:3F6EAB7F046C01DE31E3A52E711F1FD405C3A1D576A6CD36C3BF06816E90E5C6",
+			"size": "149461",
 			"help": {
 				"online": "https://www.projecttraveler.org"
 			},
-			"boards": [{
-				"name": "ArduinoTrack"
-			}],
+			"boards": [
+			{
+				"name": "ptFlex Tracker"
+			},
+			{
+				"name": "ArduinoTrack Tracker"
+			}		
+			],
 			"toolsDependencies": []
 		}],
 		"tools": [{}]

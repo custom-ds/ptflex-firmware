@@ -1,11 +1,26 @@
-# ArduinoTrack Board Contribution Configuration
+# Project Traveler Tracker Board Configuration
 #
 
 
 menu.cpu=Processor
 
 ##############################################################
-trackshield.name=ArduinoTrack Shield
+ptflex.name=ptFlex Tracker
+
+ptflex.upload.tool=arduinoasisp
+ptflex.upload.protocol=stk500
+ptflex.upload.maximum_size=32768
+ptflex.upload.maximum_data_size=2048
+ptflex.upload.speed=19200
+
+
+ptflex.build.mcu=atmega328p
+ptflex.build.f_cpu=16000000L
+ptflex.build.board=AVR_PTFLEX
+ptflex.build.core=arduino
+ptflex.build.variant=standard
+##############################################################
+trackshield.name=ArduinoTrack Tracker
 
 trackshield.upload.tool=arduinoasisp
 trackshield.upload.protocol=stk500
