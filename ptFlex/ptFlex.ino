@@ -20,7 +20,7 @@ Before programming for the first time, the ATmega fuses must be set.
 */
 
 
-#define FIRMWARE_VERSION "1.0.1"
+#define FIRMWARE_VERSION "1.0.3"
 #define CONFIG_VERSION "PT0003"
 #define CONFIG_PROMPT "\n# "
 
@@ -36,6 +36,7 @@ Before programming for the first time, the ATmega fuses must be set.
 #define __PROG_TYPES_COMPAT__
 #include <avr/pgmspace.h>
 
+#include "MemoryFree.h"
 #include <SoftwareSerial.h>
 #include <EEPROM.h>
 #include "TNC.h"
@@ -449,6 +450,13 @@ void loop() {
       annunciate('l');
     }
   }
+
+  //see if we're tracking free memory (debugging)
+  #ifdef  MEMORY_FREE_H
+    Serial.print(F("Free Mem: "));
+    Serial.println(freeMemory());
+  #endif
+  
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void sendPositionSingleLine() {
@@ -566,6 +574,13 @@ void sendPositionSingleLine() {
     oTNC.xmitLong((long)fTemp, true);
   }
 
+  //see if we're tracking free memory (debugging)
+  #ifdef  MEMORY_FREE_H
+    oTNC.xmitString((char *)" Mem=");
+    oTNC.xmitLong((long)freeMemory(), false);
+  #endif
+
+  
   customSendPositionSingleLine(Config.StatusXmitCustom, oTNC, GPSParser);     //Xmit any custom telemetry data
   
   oTNC.xmitChar(' ');
@@ -735,14 +750,29 @@ void initDRA818(void) {
   Serial.println(F("Init DRA818"));
   SoftwareSerial DRA(PIN_DRA_RX, PIN_DRA_TX, false);    //A True at the end indicates that the serial data is inverted.
   DRA.begin(9600);
+  delay(100);
+  
   DRA.print(F("AT+DMOCONNECT\r\n"));
-  Serial.println(F("  connected"));
-  delay(250);
+  Serial.println(F(" Connected"));
+  delay(350);
   DRA.print(F("AT+DMOSETGROUP=0,"));
   DRA.print(Config.RadioFreqTx);
   DRA.print(",");
   DRA.print(Config.RadioFreqRx);
   DRA.print(F(",0000,4,0000\r\n"));
+
+
+delay(100);
+  
+  DRA.print(F("AT+DMOCONNECT\r\n"));
+  Serial.println(F(" Connected"));
+  delay(350);
+  DRA.print(F("AT+DMOSETGROUP=0,"));
+  DRA.print(Config.RadioFreqTx);
+  DRA.print(",");
+  DRA.print(Config.RadioFreqRx);
+  DRA.print(F(",0000,4,0000\r\n"));
+  
 
   Serial.print(F(" Freq: "));
   Serial.println(Config.RadioFreqTx);
