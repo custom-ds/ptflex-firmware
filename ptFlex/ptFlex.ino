@@ -50,15 +50,31 @@ Before programming for the first time, the ATmega fuses must be set.
 
 #include <Wire.h>
 
-#define PIN_AUDIO 5
-#define PIN_LED 13
-#define PIN_ANALOG_BATTERY A1
+//PD0 is Serial Port RX
+//PD1 is Serial Port TX
+#define PIN_PTT_OUT 2     //PD2
+#define PIN_AUDIO_OUT 3   //PD3   - APRS Packet Audio
+#define PIN_DRA_EN 4      //PD4
+#define PIN_AUDIO 5       //PD5   - Audio Annunciation
+//PD6 is not used
+#define PIN_GPS_TX 7      //PD7
 
-#define PIN_GPS_TX 7
-#define PIN_GPS_RX 8
-#define PIN_DRA_TX 9
-#define PIN_DRA_RX 10
-#define PIN_DRA_EN 4
+#define PIN_GPS_RX 8      //PB0
+#define PIN_DRA_TX 9      //PB1
+#define PIN_DRA_RX 10     //PB2
+//PB3 is MOSI
+//PB4 is MISO
+#define PIN_LED 13        //PB5
+
+//Analog Pins
+#define PIN_AUDIO_IN A0   //PC0
+#define PIN_ANALOG_BATTERY A1   //PC1
+//PC2 is not used
+//PC3 is not used
+//PC4 is SDA
+//PC5 is SCL
+//PC6 is reset and not available
+
 
 
 
@@ -144,10 +160,7 @@ BME280 Pressure;      //BMP280 pressure/temp sensor
 
 
 //------------------------------------------ Variables for the internal modulation ------------------------------------------
-//Pin assignments
-#define PIN_AUDIO_OUT 3
-#define PIN_AUDIO_IN A0
-#define PIN_PTT_OUT 2
+
 
 #define BAUD_GENERATOR_COUNT 20
 

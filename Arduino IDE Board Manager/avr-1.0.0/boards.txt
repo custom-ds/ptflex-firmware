@@ -5,29 +5,46 @@
 menu.cpu=Processor
 
 ##############################################################
-ptflex.name=ptFlex Tracker
+ptflexISP.name=ptFlex Tracker (Arduino as ISP)
 
-ptflex.upload.tool=arduinoasisp
-ptflex.upload.protocol=stk500
-ptflex.upload.maximum_size=32768
-ptflex.upload.maximum_data_size=2048
-ptflex.upload.speed=19200
+ptflexISP.upload.tool=avrdude
+ptflexISP.upload.protocol=avrisp
+ptflexISP.upload.using=avrisp
+ptflexISP.upload.maximum_size=32768
+ptflexISP.upload.speed=19200
+ptflexISP.upload.erase=true
 
+ptflexISP.build.mcu=atmega328p
+ptflexISP.build.f_cpu=16000000L
+ptflexISP.build.board=AVR_PTFLEX
+ptflexISP.build.core=arduino
+ptflexISP.build.variant=standard
 
-ptflex.build.mcu=atmega328p
-ptflex.build.f_cpu=16000000L
-ptflex.build.board=AVR_PTFLEX
-ptflex.build.core=arduino
-ptflex.build.variant=standard
 ##############################################################
-trackshield.name=ArduinoTrack Tracker
+ptSolarISP.name=ptSolar Tracker (Arduino as ISP)
 
-trackshield.upload.tool=arduinoasisp
-trackshield.upload.protocol=stk500
+ptSolarISP.upload.tool=avrdude
+ptSolarISP.upload.protocol=avrisp
+ptSolarISP.upload.using=avrisp
+ptSolarISP.upload.maximum_size=32768
+ptSolarISP.upload.speed=19200
+ptSolarISP.upload.erase=true
+
+ptSolarISP.build.mcu=atmega328p
+ptSolarISP.build.f_cpu=8000000L
+ptSolarISP.build.board=AVR_PTFLEX
+ptSolarISP.build.core=arduino
+ptSolarISP.build.variant=standard
+
+##############################################################
+trackshield.name=ArduinoTrack Tracker (Arduino as ISP)
+
+trackshield.upload.tool=avrdude
+trackshield.upload.protocol=avrisp
+trackshield.upload.using=avrisp
 trackshield.upload.maximum_size=32768
-trackshield.upload.maximum_data_size=2048
 trackshield.upload.speed=19200
-
+trackshield.upload.erase=true
 
 trackshield.build.mcu=atmega328p
 trackshield.build.f_cpu=16000000L
@@ -35,3 +52,4 @@ trackshield.build.board=AVR_TRACKSHIELD
 trackshield.build.core=arduino
 trackshield.build.variant=standard
 ##############################################################
+
